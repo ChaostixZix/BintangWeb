@@ -24,7 +24,7 @@
                     </div>
                     <div class="nav-item d-none d-md-flex">
                         <a href="{{ route('logout') }}" class="btn btn-sm btn-outline-primary"
-                           target="_blank">Logout</a>
+                           >Logout</a>
                     </div>
                 @endif
             </div>

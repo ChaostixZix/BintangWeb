@@ -39,7 +39,8 @@ class Pengguna extends Controller
             $get = $this->PenggunaModel()->getData($username);
             Session::put([
                 'username' => $get->username,
-                'nisn' => $get->nisn
+                'nisn' => $get->nisn,
+                'level' => $get->level
             ]);
             return redirect()->route('index');
         }

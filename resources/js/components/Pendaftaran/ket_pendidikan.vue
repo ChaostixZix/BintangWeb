@@ -28,17 +28,15 @@
                                                                                                v-model="datasubmit.kabupaten_kota">
                             </div>
                             <div class="form-group"><label for="first_name"><strong>No. Seri
-                                Ijazah</strong></label><input class="form-control" type="text"
-                                                              v-model="datasubmit.no_seri_ijazah"
-                                                              inputmode="numeric"></div>
+                                Ijazah</strong></label><input class="form-control" type="number"
+                                                              v-model="datasubmit.no_seri_ijazah"></div>
                             <div class="form-group"><label for="first_name"><strong>Tanggal
                                 Ijazah</strong></label><input class="form-control" type="text"
                                                               v-model="datasubmit.tanggal_ijazah"
                                                               inputmode="numeric"></div>
                             <div class="form-group"><label for="first_name"><strong>No. Seri
-                                SKHUN</strong></label><input class="form-control" type="text"
-                                                             v-model="datasubmit.no_seri_skhun"
-                                                             inputmode="numeric"></div>
+                                SKHUN</strong></label><input class="form-control" type="number"
+                                                             v-model="datasubmit.no_seri_skhun"></div>
                             <div class="form-group"><label for="first_name"><strong>Tanggal SKHUN</strong></label><input
                                 class="form-control" type="text" v-model="datasubmit.tanggal_skhun"></div>
                             <div class="form-group"><label for="first_name"><strong>No. Peserta

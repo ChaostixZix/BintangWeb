@@ -14,6 +14,20 @@
                         class="icon mr-3"><i>2. </i></span>Keterangan Pendidikan</router-link>
                     <router-link :to="{ name: 'ket_kesehatan' }" class="list-group-item list-group-item-action"><span
                         class="icon mr-3"><i>3. </i></span>Keterangan Kesehatan</router-link>
+                    <router-link :to="{ name: 'ket_ayah' }" class="list-group-item list-group-item-action"><span
+                        class="icon mr-3"><i>4. </i></span>Keterangan Ayah</router-link>
+                    <router-link :to="{ name: 'ket_ibu' }" class="list-group-item list-group-item-action"><span
+                        class="icon mr-3"><i>5. </i></span>Keterangan Ibu</router-link>
+                    <router-link :to="{ name: 'ket_wali' }" class="list-group-item list-group-item-action"><span
+                        class="icon mr-3"><i>6. </i></span>Keterangan Wali</router-link>
+                    <router-link :to="{ name: 'ket_raport' }" class="list-group-item list-group-item-action"><span
+                        class="icon mr-3"><i>7. </i></span>Keterangan Raport</router-link>
+                    <router-link :to="{ name: 'ket_prestasi' }" class="list-group-item list-group-item-action"><span
+                        class="icon mr-3"><i>8. </i></span>Keterangan Prestasi</router-link>
+                    <router-link :to="{ name: 'ket_beasiswa' }" class="list-group-item list-group-item-action"><span
+                        class="icon mr-3"><i>9. </i></span>Keterangan Beasiswa</router-link>
+                    <router-link :to="{ name: 'ket_foto' }" class="list-group-item list-group-item-action"><span
+                        class="icon mr-3"><i>10. </i></span>Upload File</router-link>
                 </div>
             </div>
             <div class="col-lg-9">

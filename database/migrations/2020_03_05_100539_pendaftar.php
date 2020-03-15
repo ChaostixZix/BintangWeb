@@ -19,7 +19,8 @@ class Pendaftar extends Migration
             $table->bigInteger('nisn');
             $table->text('nama_lengkap');
             $table->bigInteger('nik');
-            $table->text('ttl'); //tempat tanggal lahir
+            $table->text('tempat_lahir'); //tempat tanggal lahir
+            $table->text('tanggal_lahir'); //tempat tanggal lahir
             $table->text('jenis_kelamin');
             $table->text('agama');
             $table->text('kewarganegaraan');

@@ -5,51 +5,7 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-lg-4 col-xl-4">
-                    <div class="card mb-3">
-                        <div class="card-body text-center shadow">
-                            <h4 class="card-title">Foto Siswa</h4><img class="rounded-circle mb-3 mt-4"
-                                                                       src="tabler/demo/faces/male/4.jpg" width="160"
-                                                                       height="160"/>
-                            <div class="mb-3">
-                                <button class="btn btn-primary btn-sm" type="button">Ganti Foto</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-8">
-                    <div class="row mb-3 d-none">
-                        <div class="col">
-                            <div class="card text-white bg-primary shadow">
-                                <div class="card-body">
-                                    <div class="row mb-2">
-                                        <div class="col">
-                                            <p class="m-0">Peformance</p>
-                                            <p class="m-0"><strong>65.2%</strong></p>
-                                        </div>
-                                        <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-                                    </div>
-                                    <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i> 5% since last
-                                        month</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card text-white bg-success shadow">
-                                <div class="card-body">
-                                    <div class="row mb-2">
-                                        <div class="col">
-                                            <p class="m-0">Peformance</p>
-                                            <p class="m-0"><strong>65.2%</strong></p>
-                                        </div>
-                                        <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-                                    </div>
-                                    <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i> 5% since last
-                                        month</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-lg-12">
                     <div class="row">
                         <div class="col">
                             <div class="card shadow mb-3">
@@ -168,7 +124,8 @@
                 datasubmit: {
                     nama_lengkap: '',
                     nik: '',
-                    ttl: '', //tempat tanggal lahir
+                    tempat_lahir: '', //tempat tanggal lahir
+                    tanggal_lahir: '', //tempat tanggal lahir
                     jenis_kelamin: '',
                     agama: '',
                     kewarganegaraan: '',
@@ -191,7 +148,8 @@
                 this.datasubmit = {
                     nama_lengkap: '',
                     nik: '',
-                    ttl: '', //tempat tanggal lahir
+                    tempat_lahir: '', //tempat tanggal lahir
+                    tanggal_lahir: '', //tempat tanggal lahir
                     jenis_kelamin: '',
                     agama: '',
                     kewarganegaraan: '',

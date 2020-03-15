@@ -14,7 +14,7 @@ class PendaftarPendidikan extends Migration
     public function up()
     {
         Schema::create('pendaftar_pendidikan', function (Blueprint $table) {
-            $table->text('nisn');
+            $table->bigInteger('nisn');
 
             $table->text('kelas_sebelumnya');
 

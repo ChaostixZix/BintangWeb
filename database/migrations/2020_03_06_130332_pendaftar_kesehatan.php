@@ -15,7 +15,7 @@ class PendaftarKesehatan extends Migration
     {
         Schema::create('pendaftar_kesehatan', function (Blueprint $table)
         {
-           $table->integer('nisn');
+           $table->bigInteger('nisn');
 
            $table->text('golongan_darah');
            $table->text('riwayat_penyakit');
