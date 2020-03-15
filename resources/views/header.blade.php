@@ -36,5 +36,5 @@
     <script src="{{ asset('tabler') }}/assets/plugins/input-mask/plugin.js"></script>
     <!-- Datatables Plugin -->
     <script src="{{ asset('tabler') }}/assets/plugins/datatables/plugin.js"></script>
-    <script src="{{ mix('js/app.js') }}" type="text/javascript" defer></script>
+    <script src="{{ asset('js/app.js') }}" type="text/javascript" defer></script>
 </head>

@@ -3120,6 +3120,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ket_data_siswa",
   data: function data() {
@@ -27597,13 +27602,13 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.datasubmit.ttl,
-                              expression: "datasubmit.ttl"
+                              value: _vm.datasubmit.tempat_lahir,
+                              expression: "datasubmit.tempat_lahir"
                             }
                           ],
                           staticClass: "form-control",
-                          attrs: { type: "text", placeholder: "Ttl" },
-                          domProps: { value: _vm.datasubmit.ttl },
+                          attrs: { type: "text", placeholder: "Tempat Lahir" },
+                          domProps: { value: _vm.datasubmit.tempat_lahir },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
@@ -27611,7 +27616,7 @@ var render = function() {
                               }
                               _vm.$set(
                                 _vm.datasubmit,
-                                "ttl",
+                                "tempat_lahir",
                                 $event.target.value
                               )
                             }
@@ -27621,6 +27626,35 @@ var render = function() {
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
                         _vm._m(5),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.datasubmit.tanggal_lahir,
+                              expression: "datasubmit.tanggal_lahir"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", placeholder: "Tanggal Lahir" },
+                          domProps: { value: _vm.datasubmit.tanggal_lahir },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.datasubmit,
+                                "tanggal_lahir",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _vm._m(6),
                         _c(
                           "select",
                           {
@@ -27666,7 +27700,7 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(6),
+                        _vm._m(7),
                         _c(
                           "select",
                           {
@@ -27728,7 +27762,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(7),
+                    _vm._m(8),
                     _c("input", {
                       directives: [
                         {
@@ -27761,7 +27795,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(8),
+                    _vm._m(9),
                     _c("input", {
                       directives: [
                         {
@@ -27794,7 +27828,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(9),
+                    _vm._m(10),
                     _c("input", {
                       directives: [
                         {
@@ -27827,7 +27861,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(10),
+                    _vm._m(11),
                     _c(
                       "select",
                       {
@@ -27885,7 +27919,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(11),
+                    _vm._m(12),
                     _c("input", {
                       directives: [
                         {
@@ -27918,7 +27952,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(12),
+                    _vm._m(13),
                     _c("input", {
                       directives: [
                         {
@@ -27947,7 +27981,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(13),
+                    _vm._m(14),
                     _c("input", {
                       directives: [
                         {
@@ -27980,7 +28014,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(14),
+                    _vm._m(15),
                     _c("input", {
                       directives: [
                         {
@@ -28079,9 +28113,18 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("label", { attrs: { for: "first_name" } }, [
       _c("strong", [
-        _vm._v(
-          "Tempat, Tanggal\n                                            Lahir"
-        )
+        _vm._v("Tempat\n                                            Lahir")
+      ]),
+      _c("br")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "first_name" } }, [
+      _c("strong", [
+        _vm._v("Tanggal\n                                            Lahir")
       ]),
       _c("br")
     ])

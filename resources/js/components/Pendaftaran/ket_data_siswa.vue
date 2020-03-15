@@ -29,11 +29,16 @@
                                                                                                          v-model="datasubmit.nik"
                                                                                                          inputmode="numeric"/>
                                             </div>
-                                            <div class="form-group"><label for="first_name"><strong>Tempat, Tanggal
+                                            <div class="form-group"><label for="first_name"><strong>Tempat
                                                 Lahir</strong><br/></label><input type="text" class="form-control"
-                                                                                  placeholder="Ttl"
-                                                                                  v-model="datasubmit.ttl"
+                                                                                  placeholder="Tempat Lahir"
+                                                                                  v-model="datasubmit.tempat_lahir"
                                                                                   /></div>
+                                            <div class="form-group"><label for="first_name"><strong>Tanggal
+                                                Lahir</strong><br/></label><input type="text" class="form-control"
+                                                                                  placeholder="Tanggal Lahir"
+                                                                                  v-model="datasubmit.tanggal_lahir"
+                                            /></div>
                                             <div class="form-group"><label for="first_name"><strong>Jenis
                                                 Kelamin</strong></label><select class="custom-select"
                                                                                 v-model="datasubmit.jenis_kelamin">
