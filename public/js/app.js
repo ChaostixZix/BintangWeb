@@ -2591,11 +2591,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "keluargatable",
-  props: ['isKepalaExist'],
+  name: "siswa_table",
   components: {
     datatable: _table__WEBPACK_IMPORTED_MODULE_0__["default"],
     pagination: _pagination__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -2618,16 +2622,19 @@ __webpack_require__.r(__webpack_exports__);
     });
     return {
       siswa: [],
+      urlexport: 'dataExportAll',
       columns: columns,
       sortKey: 'id',
       sortOrders: sortOrders,
+      sekolahs: [],
       perPage: ['10', '20', '30'],
       tableData: {
         draw: 0,
         length: 10,
         search: '',
         column: 0,
-        dir: 'desc'
+        dir: 'desc',
+        sekolah: "0"
       },
       pagination: {
         lastPage: '',
@@ -2643,16 +2650,35 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.getTable();
+    this.load();
   },
   methods: {
-    selesai: function selesai(nisn) {
+    sekolahChange: function sekolahChange() {
+      if (this.tableData.sekolah !== 0) {
+        this.urlexport = 'dataExportAllBySekolah/' + this.tableData.sekolah;
+      } else {
+        this.urlexport = 'dataExportAll';
+      }
+
+      this.getTable();
+    },
+    load: function load() {
       var _this = this;
 
-      axios.get('ajax/selesai/' + nisn).then(function (response) {
-        _this.success = response.data.status;
+      axios.get('ajax/getSekolah').then(function (response) {
+        _this.sekolahs = response.data;
+      })["catch"](function (errors) {
+        console.log(errors);
+      });
+    },
+    selesai: function selesai(nisn) {
+      var _this2 = this;
 
-        if (_this.success === true) {
-          _this.$swal({
+      axios.get('ajax/selesai/' + nisn).then(function (response) {
+        _this2.success = response.data.status;
+
+        if (_this2.success === true) {
+          _this2.$swal({
             position: 'top-end',
             icon: 'success',
             title: 'Selesai',
@@ -2660,23 +2686,28 @@ __webpack_require__.r(__webpack_exports__);
             timer: 1500
           });
 
-          _this.getTable();
+          _this2.getTable();
         }
       });
     },
     getTable: function getTable() {
-      var _this2 = this;
+      var _this3 = this;
 
-      var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'ajax/getAllSiswa';
+      if (this.tableData.sekolah !== "0") {
+        var url = 'ajax/getAllSiswaBySekolah';
+      } else {
+        var url = 'ajax/getAllSiswa';
+      }
+
       this.tableData.draw++;
       axios.get(url, {
         params: this.tableData
       }).then(function (response) {
         var data = response.data;
-        _this2.siswa = data.data.data;
+        _this3.siswa = data.data.data;
         console.log(data.data.next_page_url);
 
-        _this2.configPagination(data.data);
+        _this3.configPagination(data.data);
       })["catch"](function (errors) {
         console.log(errors);
       });
@@ -3136,13 +3167,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ket_data_siswa",
   data: function data() {
     return {
       table: 'pendaftar',
       url: 'ajax/submitData/ket_data_siswa',
+      sekolahs: [],
       datasubmit: {
+        sekolah: '',
         nama_lengkap: '',
         nik: '',
         tempat_lahir: '',
@@ -3171,6 +3210,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.datasubmit = {
+        sekolah: '',
         nama_lengkap: '',
         nik: '',
         tempat_lahir: '',
@@ -3193,6 +3233,11 @@ __webpack_require__.r(__webpack_exports__);
         _this.datasubmit = res.data;
       })["catch"](function (err) {
         console.log(err);
+      });
+      axios.get('ajax/getSekolah').then(function (response) {
+        _this.sekolahs = response.data;
+      })["catch"](function (errors) {
+        console.log(errors);
       });
     },
     submit: function submit() {
@@ -4328,6 +4373,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -26666,7 +26714,61 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
-      _vm._m(0),
+      _c("div", { staticClass: "col-3" }, [
+        _c(
+          "a",
+          { staticClass: "btn btn-success", attrs: { href: _vm.urlexport } },
+          [
+            _c("i", { staticClass: "fe fe-download" }),
+            _vm._v(" Semua Siswa\n        ")
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.tableData.sekolah,
+                expression: "tableData.sekolah"
+              }
+            ],
+            staticClass: "form-control",
+            on: {
+              change: [
+                function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.tableData,
+                    "sekolah",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                },
+                _vm.sekolahChange
+              ]
+            }
+          },
+          [
+            _c("option", { attrs: { value: "0" } }, [_vm._v("Semua")]),
+            _vm._v(" "),
+            _vm._l(_vm.sekolahs, function(s) {
+              return _c("option", { domProps: { value: s.id } }, [
+                _vm._v(_vm._s(s.sekolah))
+              ])
+            })
+          ],
+          2
+        )
+      ]),
       _vm._v(" "),
       _c(
         "datatable",
@@ -26798,23 +26900,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-3" }, [
-      _c(
-        "a",
-        { staticClass: "btn btn-success", attrs: { href: "dataExportAll/" } },
-        [
-          _c("i", { staticClass: "fe fe-download" }),
-          _vm._v(" Semua Siswa\n        ")
-        ]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -27600,6 +27686,50 @@ var render = function() {
                     _c("div", { staticClass: "col" }, [
                       _c("div", { staticClass: "form-group" }, [
                         _vm._m(2),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.datasubmit.sekolah,
+                                expression: "datasubmit.sekolah"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.datasubmit,
+                                  "sekolah",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          _vm._l(_vm.sekolahs, function(s) {
+                            return _c("option", { domProps: { value: s.id } }, [
+                              _vm._v(_vm._s(s.sekolah))
+                            ])
+                          }),
+                          0
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _vm._m(3),
                         _c("input", {
                           directives: [
                             {
@@ -27632,7 +27762,7 @@ var render = function() {
                   _c("div", { staticClass: "form-row" }, [
                     _c("div", { staticClass: "col" }, [
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(3),
+                        _vm._m(4),
                         _c("input", {
                           directives: [
                             {
@@ -27665,7 +27795,7 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(4),
+                        _vm._m(5),
                         _c("input", {
                           directives: [
                             {
@@ -27694,7 +27824,7 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(5),
+                        _vm._m(6),
                         _c("input", {
                           directives: [
                             {
@@ -27723,7 +27853,7 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(6),
+                        _vm._m(7),
                         _c(
                           "select",
                           {
@@ -27769,7 +27899,7 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "form-group" }, [
-                        _vm._m(7),
+                        _vm._m(8),
                         _c(
                           "select",
                           {
@@ -27831,7 +27961,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(8),
+                    _vm._m(9),
                     _c("input", {
                       directives: [
                         {
@@ -27864,7 +27994,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(9),
+                    _vm._m(10),
                     _c("input", {
                       directives: [
                         {
@@ -27897,7 +28027,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(10),
+                    _vm._m(11),
                     _c("input", {
                       directives: [
                         {
@@ -27930,7 +28060,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(11),
+                    _vm._m(12),
                     _c(
                       "select",
                       {
@@ -27988,7 +28118,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(12),
+                    _vm._m(13),
                     _c("input", {
                       directives: [
                         {
@@ -28021,7 +28151,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(13),
+                    _vm._m(14),
                     _c("input", {
                       directives: [
                         {
@@ -28050,7 +28180,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(14),
+                    _vm._m(15),
                     _c("input", {
                       directives: [
                         {
@@ -28083,7 +28213,7 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "form-group" }, [
-                    _vm._m(15),
+                    _vm._m(16),
                     _c("input", {
                       directives: [
                         {
@@ -28158,6 +28288,12 @@ var staticRenderFns = [
         _vm._v("Keterangan Siswa")
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", [_c("strong", [_vm._v("Sekolah Pilihan")])])
   },
   function() {
     var _vm = this
@@ -30602,6 +30738,10 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "alert alert-danger", attrs: { role: "alert" } }, [
+      _vm._v("\n        Harap isi data dengan hati-hati!\n    ")
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-lg-3 order-lg-1 mb-4" }, [

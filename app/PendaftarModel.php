@@ -12,6 +12,11 @@ class PendaftarModel extends Model
         return DB::table($table);
     }
 
+    public function getSekolah()
+    {
+        return $this->db('sekolah')->get();
+    }
+
     public function getAllData()
     {
         $find = $this->db('user')
@@ -25,15 +30,40 @@ class PendaftarModel extends Model
 //            ->leftJoin('pendaftar_prestasi', 'pendaftar.nisn', '=', 'pendaftar_prestasi.nisn')
 //            ->leftJoin('pendaftar_beasiswa', 'pendaftar.nisn', '=', 'pendaftar_beasiswa.nisn')
             ->get();
-        if (isset($find[0]->raport)) {
-            $find[0]->raport = json_decode($find[0]->raport);
-        }
-        if (isset($find[0]->prestasi)) {
-            $find[0]->prestasi = json_decode($find[0]->prestasi);
-        }
-        if (isset($find[0]->beasiswa)) {
-            $find[0]->beasiswa = json_decode($find[0]->beasiswa);
-        }
+//        if (isset($find[0]->raport)) {
+//            $find[0]->raport = json_decode($find[0]->raport);
+//        }
+//        if (isset($find[0]->prestasi)) {
+//            $find[0]->prestasi = json_decode($find[0]->prestasi);
+//        }
+//        if (isset($find[0]->beasiswa)) {
+//            $find[0]->beasiswa = json_decode($find[0]->beasiswa);
+//        }
+        return $find;
+    }
+
+    public function getAllDataBySekolah($sekolah)
+    {
+        $find = $this->db('pendaftar')->where('sekolah', $sekolah)
+            ->leftJoin('user', 'pendaftar.nisn', '=', 'user.nisn')
+            ->leftJoin('pendaftar_pendidikan', 'pendaftar.nisn', '=', 'pendaftar_pendidikan.nisn')
+            ->leftJoin('pendaftar_kesehatan', 'pendaftar.nisn', '=', 'pendaftar_kesehatan.nisn')
+            ->leftJoin('pendaftar_ayah', 'pendaftar.nisn', '=', 'pendaftar_ayah.nisn')
+            ->leftJoin('pendaftar_ibu', 'pendaftar.nisn', '=', 'pendaftar_ibu.nisn')
+            ->leftJoin('pendaftar_wali', 'pendaftar.nisn', '=', 'pendaftar_wali.nisn')
+//            ->leftJoin('pendaftar_raport', 'pendaftar.nisn', '=', 'pendaftar_raport.nisn')
+//            ->leftJoin('pendaftar_prestasi', 'pendaftar.nisn', '=', 'pendaftar_prestasi.nisn')
+//            ->leftJoin('pendaftar_beasiswa', 'pendaftar.nisn', '=', 'pendaftar_beasiswa.nisn')
+            ->get();
+//        if (isset($find[0]->raport)) {
+//            $find[0]->raport = json_decode($find[0]->raport);
+//        }
+//        if (isset($find[0]->prestasi)) {
+//            $find[0]->prestasi = json_decode($find[0]->prestasi);
+//        }
+//        if (isset($find[0]->beasiswa)) {
+//            $find[0]->beasiswa = json_decode($find[0]->beasiswa);
+//        }
         return $find;
     }
 
@@ -60,6 +90,20 @@ class PendaftarModel extends Model
             $find[0]->beasiswa = json_decode($find[0]->beasiswa);
         }
         return $find;
+    }
+
+    public function getForDataTableBySekolah(array $columns, $length, $column, $dir, $searchValue, $draw, $sekolah)
+    {
+        $query = $this->db()->orderBy('pendaftar.' . $columns[$column], $dir)->where('sekolah', $sekolah);
+        if ($searchValue) {
+            $query->where(function ($query) use ($searchValue) {
+                $query->where('pendaftar.nama_lengkap', 'like', '%' . $searchValue . '%')
+                    ->orWhere('pendaftar.nisn', 'like', '%' . $searchValue . '%');
+            });
+        }
+        $query = $query->leftJoin('user', 'pendaftar.nisn', '=', 'user.nisn');
+        $projects = $query->paginate($length);
+        return ['data' => $projects, 'draw' => $draw];
     }
 
     public function getForDataTable(array $columns, $length, $column, $dir, $searchValue, $draw)

@@ -15,6 +15,12 @@
                                 <div class="card-body">
                                     <div class="form-row">
                                         <div class="col">
+                                            <div class="form-group">
+                                                <label><strong>Sekolah Pilihan</strong></label>
+                                                <select class="form-control" v-model="datasubmit.sekolah">
+                                                    <option v-for="s in sekolahs" :value="s.id">{{ s.sekolah }}</option>
+                                                </select>
+                                            </div>
                                             <div class="form-group"><label for="username"><strong>Nama Lengkap</strong></label><input
                                                 type="text" class="form-control" placeholder="Nama Lengkap"
                                                 v-model="datasubmit.nama_lengkap"/></div>
@@ -126,7 +132,9 @@
             return {
                 table: 'pendaftar',
                 url: 'ajax/submitData/ket_data_siswa',
+                sekolahs: [],
                 datasubmit: {
+                    sekolah: '',
                     nama_lengkap: '',
                     nik: '',
                     tempat_lahir: '', //tempat tanggal lahir
@@ -151,6 +159,7 @@
         methods: {
             load() {
                 this.datasubmit = {
+                    sekolah: '',
                     nama_lengkap: '',
                     nik: '',
                     tempat_lahir: '', //tempat tanggal lahir
@@ -167,12 +176,21 @@
                     no_kk: '',
 
                 };
+
                 axios.get('ajax/getDataByTable/' + this.table).then(res => {
                     this.datasubmit = res.data;
                 }).catch((err) => {
                     console.log(err);
                 });
-            }, submit() {
+                axios.get('ajax/getSekolah')
+                    .then(response => {
+                        this.sekolahs = response.data;
+                    })
+                    .catch(errors => {
+                        console.log(errors);
+                    });
+            },
+            submit() {
                 axios.get(this.url, {params: this.datasubmit}).then(response => {
                     this.success = response.data.status;
                     console.log(this.success);

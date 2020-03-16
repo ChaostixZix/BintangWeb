@@ -5,9 +5,14 @@
                    @change="getTable()">
         </div>
         <div class="col-3">
-            <a href="dataExportAll/" class="btn btn-success">
+            <a :href="urlexport" class="btn btn-success">
                 <i class="fe fe-download"></i> Semua Siswa
             </a>
+            <select class="form-control"
+                    v-on:change="sekolahChange" v-model="tableData.sekolah">
+                <option value=0>Semua</option>
+                <option v-for="s in sekolahs" :value="s.id">{{ s.sekolah }}</option>
+            </select>
         </div>
         <datatable :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy">
             <tbody>
@@ -49,8 +54,7 @@
     import pagination from "./pagination";
 
     export default {
-        name: "keluargatable",
-        props: ['isKepalaExist'],
+        name: "siswa_table",
         components: {datatable: table, pagination: pagination},
         data() {
             let sortOrders = {};
@@ -65,9 +69,11 @@
             });
             return {
                 siswa: [],
+                urlexport: 'dataExportAll',
                 columns: columns,
                 sortKey: 'id',
                 sortOrders: sortOrders,
+                sekolahs: [],
                 perPage: ['10', '20', '30'],
                 tableData: {
                     draw: 0,
@@ -75,6 +81,7 @@
                     search: '',
                     column: 0,
                     dir: 'desc',
+                    sekolah: "0",
                 },
                 pagination: {
                     lastPage: '',
@@ -90,8 +97,29 @@
         },
         created() {
             this.getTable();
+            this.load();
         },
         methods: {
+            sekolahChange()
+            {
+                if(this.tableData.sekolah !== 0)
+                {
+                    this.urlexport = 'dataExportAllBySekolah/' + this.tableData.sekolah;
+                }else{
+                    this.urlexport = 'dataExportAll';
+                }
+                this.getTable();
+            },
+            load()
+            {
+                axios.get('ajax/getSekolah')
+                    .then(response => {
+                        this.sekolahs = response.data;
+                    })
+                    .catch(errors => {
+                        console.log(errors);
+                    });
+            },
             selesai(nisn)
             {
                 axios.get('ajax/selesai/' + nisn).then(response => {
@@ -108,7 +136,13 @@
                     }
                 });
             },
-            getTable(url = 'ajax/getAllSiswa') {
+            getTable() {
+                if(this.tableData.sekolah !== "0")
+                {
+                    var url = 'ajax/getAllSiswaBySekolah';
+                }else{
+                    var url = 'ajax/getAllSiswa';
+                }
                 this.tableData.draw++;
                 axios.get(url, {params: this.tableData})
                     .then(response => {

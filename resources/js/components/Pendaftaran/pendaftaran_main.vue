@@ -5,6 +5,9 @@
                 Daftar Ulang
             </h1>
         </div>
+        <div class="alert alert-danger" role="alert">
+            Harap isi data dengan hati-hati!
+        </div>
         <div class="row">
             <div class="col-lg-3 order-lg-1 mb-4">
                 <div class="list-group list-group-transparent mb-0">

@@ -42,14 +42,17 @@ Route::group(['prefix' => '/', 'middleware' => 'cekSes'], function ()
        return view('app');
    })->name('index');
    Route::get('dataExportAll', 'Pendaftaran@exportDataAll');
+   Route::get('dataExportAllBySekolah/{sekolah}', 'Pendaftaran@exportDataAll');
    Route::get('dataExport/{nisn}', 'Pendaftaran@exportData');
    Route::get('raportExportraportExport/{nisn}', 'Pendaftaran@exportRaport');
 
 
    Route::group(['prefix' => 'ajax'], function () //todo = middleware for nisn
    {
+       Route::get('getSekolah', 'Pendaftaran@getSekolah');
        Route::get('getAllDataByNisn/{nisn}', 'Pendaftaran@getAllDataByNisn');
        Route::get('getAllSiswa/', 'Pendaftaran@getSiswaDatatable');
+       Route::get('getAllSiswaBySekolah/', 'Pendaftaran@getSiswaDatatableBySekolah');
        Route::get('getDataByTable/{table}', 'Pendaftaran@getDataByTable');
        Route::get('getDataPrestasi/', 'Pendaftaran@getDataPrestasi');
        Route::get('getDataPrestasiByNisn/{nisn}', 'Pendaftaran@getDataPrestasiByNisn');

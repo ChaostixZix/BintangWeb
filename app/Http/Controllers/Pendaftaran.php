@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\PendaftarExport;
 use App\Exports\PendaftarExportAll;
+use App\Exports\PendaftarExportAllBySekolah;
 use App\Exports\PendaftarRaportExport;
 use App\PendaftarModel;
 use Illuminate\Http\Request;
@@ -18,25 +19,27 @@ class Pendaftaran extends Controller
         return new PendaftarModel();
     }
 
-    public function exportData($nisn)
+    public function getSekolah()
     {
-//        return (new PendaftarExport($nisn))->download('invoices.xlsx');
-        return Excel::download(new PendaftarExport($nisn), 'siswa- ' . $nisn . '.xlsx');
-//        return response()->json($this->PendaftarModel()->getAllDataByNisn($nisn));
+        return response()->json($this->PendaftarModel()->getSekolah());
     }
 
+    public function exportData($nisn)
+    {
+        return Excel::download(new PendaftarExport($nisn), 'siswa- ' . $nisn . '.xlsx');
+    }
     public function exportDataAll()
     {
-//        return (new PendaftarExport($nisn))->download('invoices.xlsx');
         return Excel::download(new PendaftarExportAll(), 'siswa.xlsx');
-//        return response()->json($this->PendaftarModel()->getAllDataByNisn($nisn));
+    }
+    public function exportDataAllBySekolah($sekolah)
+    {
+        return Excel::download(new PendaftarExportAllBySekolah($sekolah), 'siswa.xlsx');
     }
 
     public function exportRaport($nisn)
     {
-//        return (new PendaftarExport($nisn))->download('invoices.xlsx');
         return Excel::download(new PendaftarRaportExport($nisn), 'raport- ' . $nisn . '.xlsx');
-//        return response()->json($this->PendaftarModel()->getAllDataByNisn($nisn));
     }
 
     public function getAllDataByNisn($nisn)
@@ -56,6 +59,20 @@ class Pendaftaran extends Controller
 
         return $this->PendaftarModel()->getForDataTable($columns, $length, $column, $dir, $searchValue, $draw);
     }
+
+    public function getSiswaDatatableBySekolah(Request $request)
+    {
+        $columns = ['nisn', 'nama_lengkap'];
+        $length = $request->input('length');
+        $column = $request->input('column'); //Indexweb
+        $dir = $request->input('dir');
+        $searchValue = $request->input('search');
+        $draw = $request->input('draw');
+        $sekolah = $request->input('sekolah');
+
+        return $this->PendaftarModel()->getForDataTableBySekolah($columns, $length, $column, $dir, $searchValue, $draw, $sekolah);
+    }
+
 
     public function getDataByTable($table)
     {
