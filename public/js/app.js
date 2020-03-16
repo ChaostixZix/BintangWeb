@@ -2586,6 +2586,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -26634,7 +26639,7 @@ var render = function() {
   return _c(
     "section",
     [
-      _c("div", { staticClass: "tableFilters" }, [
+      _c("div", { staticClass: "col-9 tableFilters" }, [
         _c("input", {
           directives: [
             {
@@ -26660,6 +26665,8 @@ var render = function() {
           }
         })
       ]),
+      _vm._v(" "),
+      _vm._m(0),
       _vm._v(" "),
       _c(
         "datatable",
@@ -26791,7 +26798,23 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-3" }, [
+      _c(
+        "a",
+        { staticClass: "btn btn-success", attrs: { href: "dataExportAll/" } },
+        [
+          _c("i", { staticClass: "fe fe-download" }),
+          _vm._v(" Semua Siswa\n        ")
+        ]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 

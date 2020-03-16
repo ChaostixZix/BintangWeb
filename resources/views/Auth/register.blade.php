@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="en" dir="ltr">
 <head>
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
     <link href="{{ asset('tabler') }}/assets/css/dashboard.css" rel="stylesheet" />
     <script src="{{ asset('tabler') }}/assets/js/dashboard.js"></script>
     <link href="{{ asset('tabler') }}/assets/plugins/charts-c3/plugin.css" rel="stylesheet" />
@@ -32,14 +36,14 @@
                                 <input name="email" type="email" class="form-control" placeholder="Enter email">
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Nisn Siswa</label>
-                                <input name="nisn" type="number" class="form-control" placeholder="Nisn">
-                            </div>
-                            <div class="form-group">
                                 <label class="form-label">Password</label>
                                 <input name="password" type="password" class="form-control" placeholder="Password">
                             </div>
-                            <div class="form-footer">
+                            <div class="form-group">
+                                <label class="form-label">Nisn Siswa</label>
+                                <input id="nisn" name="nisn" type="number" class="form-control" placeholder="Nisn">
+                            </div>
+                            <div id="submit" class="form-footer" style="display: none">
                                 <button type="submit" class="btn btn-primary btn-block">Create new account</button>
                             </div>
                         </div>
@@ -52,5 +56,14 @@
         </div>
     </div>
 </div>
+<script>
+    $("#nisn").on('keyup', function() {
+        if($(this).val().length === 10) {
+            $('#submit').show();
+        } else {
+            $('#submit').hide();
+        }
+    });
+</script>
 </body>
 </html>

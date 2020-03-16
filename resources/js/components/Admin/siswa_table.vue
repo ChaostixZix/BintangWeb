@@ -1,8 +1,13 @@
 <template>
     <section>
-        <div class="tableFilters">
+        <div class="col-9 tableFilters">
             <input class="input" type="text" v-model="tableData.search" placeholder="Search Table"
                    @change="getTable()">
+        </div>
+        <div class="col-3">
+            <a href="dataExportAll/" class="btn btn-success">
+                <i class="fe fe-download"></i> Semua Siswa
+            </a>
         </div>
         <datatable :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy">
             <tbody>
