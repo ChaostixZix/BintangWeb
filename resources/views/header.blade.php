@@ -14,15 +14,10 @@
     <link rel="icon" href="{{ asset('tabler') }}/favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('tabler') }}/favicon.ico" />
     <!-- Generated: 2019-04-04 16:55:45 +0200 -->
-    <title>Homepage - tabler.github.io - a responsive, flat and full featured admin template</title>
+    <title>Thawalib</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
     <script src="{{ asset('tabler') }}/assets/js/require.min.js"></script>
-    <script>
-        requirejs.config({
-            baseUrl: '.'
-        });
-    </script>
     <!-- Dashboard Core -->
     <link href="{{ asset('tabler') }}/assets/css/dashboard.css" rel="stylesheet" />
     <script src="{{ asset('tabler') }}/assets/js/dashboard.js"></script>

@@ -17,6 +17,12 @@
                     <button v-if="p.selesai === 0" v-on:click="selesai(p.nisn)" class="btn btn-info">
                         <i class="fe fe-check"> </i>Selesai
                     </button>
+                    <a :href="'dataExport/' + p.nisn" class="btn btn-secondary">
+                        <i class="fe fe-download"></i> Data
+                    </a>
+                    <a :href="'raportExport/' + p.nisn" class="btn btn-secondary">
+                        <i class="fe fe-download"></i> Raport
+                    </a>
                     <router-link :to="{ name: 'detail_siswa', params: { nisn: p.nisn } }" class="btn btn-primary">
                         Detail
                     </router-link>

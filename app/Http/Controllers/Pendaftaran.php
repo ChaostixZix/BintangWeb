@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PendaftarExport;
+use App\Exports\PendaftarRaportExport;
 use App\PendaftarModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 use phpDocumentor\Reflection\DocBlock\Tags\See;
 
 class Pendaftaran extends Controller
@@ -12,6 +15,20 @@ class Pendaftaran extends Controller
     private function PendaftarModel()
     {
         return new PendaftarModel();
+    }
+
+    public function exportData($nisn)
+    {
+//        return (new PendaftarExport($nisn))->download('invoices.xlsx');
+        return Excel::download(new PendaftarExport($nisn), 'siswa- ' . $nisn . '.xlsx');
+//        return response()->json($this->PendaftarModel()->getAllDataByNisn($nisn));
+    }
+
+    public function exportRaport($nisn)
+    {
+//        return (new PendaftarExport($nisn))->download('invoices.xlsx');
+        return Excel::download(new PendaftarRaportExport($nisn), 'raport- ' . $nisn . '.xlsx');
+//        return response()->json($this->PendaftarModel()->getAllDataByNisn($nisn));
     }
 
     public function getAllDataByNisn($nisn)

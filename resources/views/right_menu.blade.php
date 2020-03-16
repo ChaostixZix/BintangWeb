@@ -1,7 +1,7 @@
 <div class="header py-4">
     <div class="container">
         <div class="d-flex">
-            <a class="header-brand" href="{{ asset('tabler') }}/index.html">
+            <a class="header-brand" href="http://ppdb.thawalibpadangpanjang.sch.id">
                 <img src="http://ppdb.thawalibpadangpanjang.sch.id/scrooge/logo.jpg" class="header-brand-img"
                      alt="tabler logo">
             </a>

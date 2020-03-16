@@ -41,6 +41,8 @@ Route::group(['prefix' => '/', 'middleware' => 'cekSes'], function ()
    {
        return view('app');
    })->name('index');
+   Route::get('dataExport/{nisn}', 'Pendaftaran@exportData');
+   Route::get('raportExport/{nisn}', 'Pendaftaran@exportRaport');
 
 
    Route::group(['prefix' => 'ajax'], function () //todo = middleware for nisn

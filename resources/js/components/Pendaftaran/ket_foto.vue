@@ -11,7 +11,17 @@
                             <span v-if="display_file !== 0"> {{ display_file}}</span>
                         </div>
                         <div class="card-body">
-                            <input type="file" @change="imageChanged">
+                            <div v-if="progressBar !== 0">
+                                <div class="clearfix">
+                                    <div class="float-left">
+                                        <strong>{{progressBar}}%</strong>
+                                    </div>
+                                </div>
+                                <div class="progress progress-xs">
+                                    <div class="progress-bar bg-green" role="progressbar" :style="'width: ' + progressBar +'%'" :aria-valuenow="progressBar" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <input accept="image/x-png,image/gif,image/jpeg" type="file" @change="imageChanged">
                             <button v-on:click="submit" class="btn btn-primary ml-auto"><i class="fe fe-save"></i> Save</button>
                         </div>
                     </div>
@@ -50,6 +60,7 @@
             return {
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 nama_file: 0,
+                progressBar: 0,
                 file: null,
                 display_file: 0,
                 table: 'pendaftar_foto',
@@ -122,6 +133,7 @@
             load() {
                 axios.get('ajax/getDataByTable/' + this.table).then(res => {
                     this.data = res.data;
+
                 }).catch((err) => {
                     console.log(err);
                 });
@@ -139,8 +151,13 @@
                 fd.append('display', this.display_file);
                 fd.append('file', this.file);
                 fd.append('_token', this.csrf);
-                axios.post(this.url, fd).then(response => {
+                axios.post(this.url, fd, {
+                    onUploadProgress: function( progressEvent ) {
+                        this.progressBar = parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total))
+                    }.bind(this)
+                }).then(response => {
                     this.success = response.data.status;
+                    this.progressBar = 0;
                     console.log(this.success);
                     if (this.success === true) {
                         //success

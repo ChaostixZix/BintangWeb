@@ -21,9 +21,9 @@ class PendaftarModel extends Model
             ->leftJoin('pendaftar_ayah', 'pendaftar.nisn', '=', 'pendaftar_ayah.nisn')
             ->leftJoin('pendaftar_ibu', 'pendaftar.nisn', '=', 'pendaftar_ibu.nisn')
             ->leftJoin('pendaftar_wali', 'pendaftar.nisn', '=', 'pendaftar_wali.nisn')
-            ->leftJoin('pendaftar_raport', 'pendaftar.nisn', '=', 'pendaftar_raport.nisn')
-            ->leftJoin('pendaftar_prestasi', 'pendaftar.nisn', '=', 'pendaftar_prestasi.nisn')
-            ->leftJoin('pendaftar_beasiswa', 'pendaftar.nisn', '=', 'pendaftar_beasiswa.nisn')
+//            ->leftJoin('pendaftar_raport', 'pendaftar.nisn', '=', 'pendaftar_raport.nisn')
+//            ->leftJoin('pendaftar_prestasi', 'pendaftar.nisn', '=', 'pendaftar_prestasi.nisn')
+//            ->leftJoin('pendaftar_beasiswa', 'pendaftar.nisn', '=', 'pendaftar_beasiswa.nisn')
             ->get();
         if (isset($find[0]->raport)) {
             $find[0]->raport = json_decode($find[0]->raport);

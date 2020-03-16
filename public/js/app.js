@@ -2580,6 +2580,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3273,12 +3279,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ket_raport",
   data: function data() {
     return {
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       nama_file: 0,
+      progressBar: 0,
       file: null,
       display_file: 0,
       table: 'pendaftar_foto',
@@ -3359,8 +3376,13 @@ __webpack_require__.r(__webpack_exports__);
       fd.append('display', this.display_file);
       fd.append('file', this.file);
       fd.append('_token', this.csrf);
-      axios.post(this.url, fd).then(function (response) {
+      axios.post(this.url, fd, {
+        onUploadProgress: function (progressEvent) {
+          this.progressBar = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+        }.bind(this)
+      }).then(function (response) {
         _this2.success = response.data.status;
+        _this2.progressBar = 0;
         console.log(_this2.success);
 
         if (_this2.success === true) {
@@ -26704,6 +26726,30 @@ var render = function() {
                       : _vm._e(),
                     _vm._v(" "),
                     _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: { href: "dataExport/" + p.nisn }
+                      },
+                      [
+                        _c("i", { staticClass: "fe fe-download" }),
+                        _vm._v(" Data\n                ")
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: { href: "raportExport/" + p.nisn }
+                      },
+                      [
+                        _c("i", { staticClass: "fe fe-download" }),
+                        _vm._v(" Raport\n                ")
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
                       "router-link",
                       {
                         staticClass: "btn btn-primary",
@@ -28264,8 +28310,36 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
+                  _vm.progressBar !== 0
+                    ? _c("div", [
+                        _c("div", { staticClass: "clearfix" }, [
+                          _c("div", { staticClass: "float-left" }, [
+                            _c("strong", [
+                              _vm._v(_vm._s(_vm.progressBar) + "%")
+                            ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "progress progress-xs" }, [
+                          _c("div", {
+                            staticClass: "progress-bar bg-green",
+                            style: "width: " + _vm.progressBar + "%",
+                            attrs: {
+                              role: "progressbar",
+                              "aria-valuenow": _vm.progressBar,
+                              "aria-valuemin": "0",
+                              "aria-valuemax": "100"
+                            }
+                          })
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
                   _c("input", {
-                    attrs: { type: "file" },
+                    attrs: {
+                      accept: "image/x-png,image/gif,image/jpeg",
+                      type: "file"
+                    },
                     on: { change: _vm.imageChanged }
                   }),
                   _vm._v(" "),
